@@ -25,6 +25,7 @@ const EditInput = ({ value, setInput, input, id, edit, handleChange }) => {
         color="primary"
         variant="contained"
         style={{ width: "100px", marginLeft: "auto" }}
+        disabled={value ? false : true}
         onClick={() => {
           edit(id, value);
           setInput(!input);
