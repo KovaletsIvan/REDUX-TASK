@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { connect } from "react-redux";
 
 import { Box } from "@material-ui/core";
@@ -6,10 +6,12 @@ import { Button } from "@material-ui/core";
 
 import { removePost, editPost } from "../posts.actions";
 import EditInput from "./EditInput";
+import ThemeContext from "../btn.context";
 
-const Post = ({ id, text, deletePost, edit }) => {
+const Post = ({ id, text, deletePost }) => {
   const [input, setInput] = useState(false);
   const [value, setValue] = useState(text);
+  const theme = useContext(ThemeContext);
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -47,6 +49,7 @@ const Post = ({ id, text, deletePost, edit }) => {
         <Button
           color="primary"
           variant="contained"
+          style={{ background: theme.light.background }}
           onClick={() => {
             setInput(!input);
           }}
@@ -57,6 +60,7 @@ const Post = ({ id, text, deletePost, edit }) => {
           display="block"
           color="primary"
           variant="contained"
+          style={{ background: theme.darck.background }}
           onClick={() => deletePost(id)}
         >
           Delete

@@ -6,6 +6,7 @@ import Form from "./components/Form";
 import Posts from "./components/Posts";
 
 import { store } from "./store";
+import ThemeContext, { theme } from "./btn.context";
 
 import "./App.scss";
 
@@ -22,10 +23,12 @@ function App() {
 
   return (
     <Provider store={store}>
-      <div className="App">
-        <Form handleChange={handleChange} clerInput={clerInput} post={post} />
-        <Posts handleChange={handleChange} />
-      </div>
+      <ThemeContext.Provider value={theme}>
+        <div className="App">
+          <Form handleChange={handleChange} clerInput={clerInput} post={post} />
+          <Posts handleChange={handleChange} />
+        </div>
+      </ThemeContext.Provider>
     </Provider>
   );
 }
