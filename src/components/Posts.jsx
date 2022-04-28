@@ -1,9 +1,10 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Post from "./Post";
 
-const Posts = ({ posts, handleChange }) => {
+const Posts = ({ handleChange }) => {
+  const posts = useSelector((state) => state.posts);
   return (
     <>
       {posts.map((post) => (
@@ -17,10 +18,5 @@ const Posts = ({ posts, handleChange }) => {
     </>
   );
 };
-const mapState = (state) => {
-  return {
-    posts: state.posts,
-  };
-};
 
-export default connect(mapState)(Posts);
+export default Posts;
