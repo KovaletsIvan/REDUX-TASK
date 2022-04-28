@@ -1,5 +1,5 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useCallback } from "react";
+import { useDispatch } from "react-redux";
 
 import { FormGroup } from "@material-ui/core";
 import { Input } from "@material-ui/core";
@@ -7,7 +7,16 @@ import { Button } from "@material-ui/core";
 
 import { addPost } from "../posts.actions";
 
-const Form = ({ post, handleChange, add, clerInput }) => {
+const Form = ({ post, handleChange, clerInput }) => {
+  const dispatch = useDispatch();
+
+  const add = useCallback(
+    (post) => {
+      dispatch(addPost(post));
+    },
+    [dispatch]
+  );
+
   return (
     <FormGroup style={{ margin: "20px" }}>
       <Input
@@ -31,11 +40,4 @@ const Form = ({ post, handleChange, add, clerInput }) => {
   );
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    add: (post) => dispatch(addPost(post)),
-  };
-};
-const connector = connect(null, mapDispatch);
-
-export default connector(Form);
+export default Form;

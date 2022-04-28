@@ -1,5 +1,5 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useCallback } from "react";
+import { useDispatch } from "react-redux";
 
 import { Box } from "@material-ui/core";
 import { Button } from "@material-ui/core";
@@ -7,7 +7,16 @@ import { Input } from "@material-ui/core";
 
 import { editPost } from "../posts.actions";
 
-const EditInput = ({ value, setInput, input, id, edit, handleChange }) => {
+const EditInput = ({ value, setInput, input, id, handleChange }) => {
+  const dispatch = useDispatch();
+
+  const edit = useCallback(
+    (id, text) => {
+      dispatch(editPost(id, text));
+    },
+    [dispatch]
+  );
+
   return (
     <Box
       component="div"
@@ -37,11 +46,5 @@ const EditInput = ({ value, setInput, input, id, edit, handleChange }) => {
   );
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    edit: (id, text) => dispatch(editPost(id, text)),
-  };
-};
-const connector = connect(null, mapDispatch);
 
-export default connector(EditInput);
+export default EditInput;

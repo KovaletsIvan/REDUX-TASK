@@ -1,17 +1,25 @@
-import React, { useState, useContext } from "react";
-import { connect } from "react-redux";
+import React, { useState, useContext, useCallback } from "react";
+import { useDispatch } from "react-redux";
 
 import { Box } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 
-import { removePost, editPost } from "../posts.actions";
+import { removePost } from "../posts.actions";
 import EditInput from "./EditInput";
 import ThemeContext from "../btn.context";
 
-const Post = ({ id, text, deletePost }) => {
+const Post = ({ id, text }) => {
   const [input, setInput] = useState(false);
   const [value, setValue] = useState(text);
+  const dispatch = useDispatch();
   const theme = useContext(ThemeContext);
+
+  const deletePost = useCallback(
+    (id) => {
+      dispatch(removePost(id));
+    },
+    [dispatch]
+  );
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -70,13 +78,4 @@ const Post = ({ id, text, deletePost }) => {
   );
 };
 
-const mapDispatch = (dispatch) => {
-  return {
-    deletePost: (id) => dispatch(removePost(id)),
-    edit: (id, text) => dispatch(editPost(id, text)),
-  };
-};
-
-const connector = connect(null, mapDispatch);
-
-export default connector(Post);
+export default Post;

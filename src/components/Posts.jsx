@@ -23,6 +23,4 @@ const mapState = (state) => {
   };
 };
 
-const connector = connect(mapState);
-
-export default connector(Posts);
+export default connect(mapState)(Posts);
